@@ -1,0 +1,26 @@
+<div class="formScreen">
+    <main class="form">
+        <%= render partial: "shared/back_arrow", locals: { image_name: 'black_arrow.svg' } %>
+        <h1>Atualizar perfil</h1>
+        <%= form_with model: Current.user, url: user_path do |form|%>
+            <% if form.object.errors.any? %>
+                <div class="alert alert-danger">
+                    <% form.object.errors.full_messages.each do |message| %>
+                        <div><%= message %></div>
+                    <% end %>
+                </div>
+            <% end %>
+            <div class="mb-3">
+                <%= form.label "Nome" %>
+                <%= form.text_field :name, placeholder: "Maria da Silva", class: "form-control"%>
+            </div>
+            <div class="mb-3">
+                <%= form.label "Nickname" %>
+                <%= form.text_field :nickname, placeholder: "maria2000", class: "form-control"%>
+            </div>
+            <div>
+                <%= form.submit "Atualizar Perfil", class:"btn btn-primary" %>
+            </div>
+        <% end %>
+    </main>
+</div>

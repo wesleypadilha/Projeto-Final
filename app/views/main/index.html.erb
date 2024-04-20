@@ -1,0 +1,47 @@
+<% if Current.user %>
+    <header style="z-index: 3">
+        <div class="logged_bar">
+            <img src="<%= asset_path('gg--profile.svg') %>" style="padding: 5px" height="40" class="clickableIcon" id="style-change-button" data-display="h">
+        </div>
+        <nav class="menu" id="invMenu" style="display: none">
+            <%= button_to "Meus Posts", posts_path, method: :get, class: "menu_button" %>
+            <%= button_to "Alterar Senha", password_path, method: :get, class: "menu_button" %>
+            <%= button_to "Atualizar Perfil", user_path, method: :get, class: "menu_button" %>
+            <%= button_to "Sair", logout_path, method: :delete, class: "menu_button" %>
+        </nav>
+    </header>
+<% else %>
+    <header class="linksSignInSignUp">
+        <%= link_to "Entrar", sign_in_path, class: "links"%>
+        <%= link_to "Registre-se", sign_up_path, class: "links" %>
+    </header>
+<% end %>
+
+<div class="posts_list">
+    <% @posts.each do |post| %>
+        <div class="card">
+            <div class="post_title">
+                <%= link_to post.title, '/' + post.id.to_s %>
+            </div>
+        </div> 
+    <% end %>
+
+    <%== pagy_nav(@pagy) if @pagy.pages > 0%>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+    $('#style-change-button').click(function() {
+        var vis = $(this).data('display');
+         if (vis === 'n') {
+            $('#invMenu').css('display', '');
+            $(this).data('display', 'v');
+        } else {
+            $('#invMenu').css('display', 'none');
+            $(this).data('display', 'n');
+        }
+    });
+  });
+</script>

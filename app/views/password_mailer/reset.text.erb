@@ -1,0 +1,2 @@
+<h1>Olá, <%= params[:user].email %></h1>
+<p>Recebemos uma solicitação de redefinição de senha da conta com email <%= params[:user].email %>. Se foi você que solicitou a alteração, clique em <%= password_reset_edit_url(token: @token) %></p>

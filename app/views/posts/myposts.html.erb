@@ -1,0 +1,23 @@
+<div class="posts_list">
+    <%= render partial: "shared/back_arrow", locals: { image_name: 'mingcute--arrow-left-fill' } %>
+    <%= button_to "Novo Post", post_path, method: :get, class: 'btn btn-primary' %>
+    <% @user_posts.each do |post| %>
+        <div class="card">
+            <div class="post_title">
+                <%= post.title %>
+            </div>
+            <div class="buttons_post"> 
+                <%= button_to(image_tag('mdi--pencil.svg', style: 'width:30px;').html_safe, 
+                    post_path + '/' + post.id.to_s,
+                    method: :get,
+                    class: 'button_fig',
+                    style: 'width: 10%;') %>
+                <%= button_to(image_tag('mdi--trash.svg', style: 'width:30px;').html_safe, 
+                    post_path + '/' + post.id.to_s, 
+                    method: :get,
+                    class: 'button_fig',
+                    style: 'width: 10%;') %>
+            </div>
+        </div>
+    <% end %>
+</div>

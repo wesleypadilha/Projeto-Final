@@ -1,0 +1,34 @@
+<%= render partial: "shared/back_arrow", locals: { image_name: 'black_arrow.svg' } %>
+<h1><%= @post.title %></h1>
+<%= @post.content %>
+
+<% index = 0 %>
+<% @comments.each do |comment| %>
+    <div>
+        <% if comment.user_id? %>
+            <%= @nicknames[index] %>
+             <% index += 1 %>
+        <% else %>
+            Anônimo
+        <% end %>
+         - <%= comment.content %> 
+    </div>
+<% end %>
+
+<%= form_with model: @comment, url: comment_path do |form|%>
+    <% if @comment.errors.any? %>
+        <div class="alert alert-danger">
+            <% @comment.errors.full_messages.each do |message| %>
+                <div><%= message %></div>
+            <% end %>
+        </div>
+    <% end %>
+    <%= form.hidden_field :post_id, value: @post.id %>
+    <div class="mb-3">
+        <%= form.label "Comentário" %>
+        <%= form.text_area :content, placeholder: "Escreva aqui o seu comentário", class: "form-control", maxlength: 1500, style: "min-height: 300px;"%>
+    </div>
+    <div>
+        <%= form.submit "Publicar Comentário", class:"btn btn-primary" %>
+    </div>
+<% end %>

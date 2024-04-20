@@ -1,0 +1,14 @@
+<div class="formScreen ">
+    <main class="form">
+        <h1>Esqueceu a Senha?</h1>
+        <%= form_with url: password_reset_path do |form|%>
+            <div class="mb-3">
+                <%= form.label "E-mail" %>
+                <%= form.text_field :email, placeholder: "Escreva aqui o seu email", class: "form-control" %>
+            </div>
+            <div>
+                <%= form.submit "Redefinir senha", class:"btn btn-primary" %>
+            </div>
+        <% end %>
+    </main>
+</div>

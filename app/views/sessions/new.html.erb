@@ -1,0 +1,19 @@
+<div class="formScreen">
+    <main class="form">
+        <img src="<%= asset_path('logo.svg') %>" style="padding-bottom: 5px" height="69">
+        <%= form_with url: sign_in_path do |form|%>
+            <div class="mb-3">
+                <%= form.label "E-mail" %>
+                <%= form.text_field :email, placeholder: "maria@gmail.com", class: "form-control"%>
+            </div>
+            <div class="mb-3">
+                <%= form.label "Senha" %>
+                <%= form.password_field :password, placeholder: "senha", class: "form-control"%>
+            </div>
+            <%= link_to "Esqueceu sua senha?", password_reset_path,  class: "links"%>
+            <div>
+                <%= form.submit "Entrar",  class:"btn btn-primary" %>
+            </div>
+        <% end %>
+    </main>
+</div>
