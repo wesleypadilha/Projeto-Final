@@ -6,7 +6,7 @@ require "rails/all"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-module MainoBlog
+module RailsBlog
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.1
@@ -16,6 +16,7 @@ module MainoBlog
     # Common ones are `templates`, `generators`, or `middleware`, for example.
     config.autoload_lib(ignore: %w(assets tasks))
 
+    config.middleware.insert_after ActionDispatch::Static, Rack::Deflater
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files

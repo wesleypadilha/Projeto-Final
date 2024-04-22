@@ -1,26 +1,25 @@
-<div class="formScreen">
-    <main class="form">
-        <%= render partial: "shared/back_arrow", locals: { image_name: 'black_arrow.svg' } %>
-        <h1>Atualizar perfil</h1>
-        <%= form_with model: Current.user, url: user_path do |form|%>
-            <% if form.object.errors.any? %>
-                <div class="alert alert-danger">
-                    <% form.object.errors.full_messages.each do |message| %>
-                        <div><%= message %></div>
-                    <% end %>
-                </div>
-            <% end %>
-            <div class="mb-3">
-                <%= form.label "Nome" %>
-                <%= form.text_field :name, placeholder: "Maria da Silva", class: "form-control"%>
-            </div>
-            <div class="mb-3">
-                <%= form.label "Nickname" %>
-                <%= form.text_field :nickname, placeholder: "maria2000", class: "form-control"%>
-            </div>
-            <div>
-                <%= form.submit "Atualizar Perfil", class:"btn btn-primary" %>
-            </div>
-        <% end %>
-    </main>
-</div>
+<header class="container" style="height: 20rem">
+  <div class="row gap-0 justify-content-center h-100 align-items-center">
+    <h1 class="text-center text-uppercase"><%= @user.username %></h1>
+    <p class="text-center"><%= t'.title' %></p>
+  </div>
+</header>
+
+<main class="container col-3">
+  <%= form_with model: @user, url: password_update_path, method: :patch do |form| %>
+    <%= render "shared/form_errors", object: form.object %>
+
+    <div class="form-floating mb-3">
+      <%= form.text_field :username, required: true, class: "form-control", placeholder: t("user") %>
+      <%= form.label :username, t("user") %>
+    </div>
+    <div class="form-floating mb-3">
+      <%= form.email_field :email, required: true, class: "form-control", placeholder: t("email") %>
+      <%= form.label :email, t('email') %>
+    </div>
+
+    <div class="mb-3 d-flex justify-content-end">
+      <%= form.submit t(".save"), class: "btn btn-success" %>
+    </div>
+  <% end %>
+</main>

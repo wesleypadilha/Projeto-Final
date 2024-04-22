@@ -1,26 +1,11 @@
-<div class="formScreen">
-    <main class="form">
-        <%= render partial: "shared/back_arrow", locals: { image_name: 'black_arrow.svg' } %>
-        <h1>Alterar senha</h1>
-        <%= form_with model: Current.user, url: password_path do |form|%>
-            <% if form.object.errors.any? %>
-                <div class="alert alert-danger">
-                    <% form.object.errors.full_messages.each do |message| %>
-                        <div><%= message %></div>
-                    <% end %>
-                </div>
-            <% end %>
-            <div class="mb-3">
-                <%= form.label "Senha" %>
-                <%= form.password_field :password, placeholder: "senha", class: "form-control"%>
-            </div>
-            <div class="mb-3">
-                <%= form.label "Confirmação de Senha" %>
-                <%= form.password_field :password_confirmation, placeholder: "senha", class: "form-control"%>
-            </div>
-            <div>
-                <%= form.submit "Alterar Senha", class:"btn btn-primary" %>
-            </div>
-        <% end %>
-    </main>
-</div>
+<%= form_with url: password_path(params[:password_reset_token]), scope: :user, method: :put do |form| %>
+  <div>
+    <%= form.label :password %>
+    <%= form.password_field :password, required: true %>
+  </div>
+  <div>
+    <%= form.label :password_confirmation %>
+    <%= form.password_field :password_confirmation, required: true %>
+  </div>
+  <%= form.submit "Update Password" %>
+<% end %>

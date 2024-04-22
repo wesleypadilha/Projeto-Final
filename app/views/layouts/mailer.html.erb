@@ -1,13 +1,19 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <style>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <style>
       /* Email styles need to be inline */
-    </style>
-  </head>
+  </style>
+  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+  <%= javascript_importmap_tags %>
+</head>
 
-  <body>
+<body>
+<main class=" px-4 px-lg-5 min-vh-100 d-flex justify-content-center align-items-center bg-danger bg-opacity-50">
+  <section class="col-md-8 col-lg-6 col-xl-4 border rounded p-5 bg-white shadow">
     <%= yield %>
-  </body>
+  </section>
+</main>
+</body>
 </html>

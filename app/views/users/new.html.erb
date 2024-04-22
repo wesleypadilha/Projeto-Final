@@ -1,0 +1,31 @@
+<h1 class="text-center"><%= t'.title' %></h1>
+
+<%= form_with model: @user, url: sign_up_path do |form| %>
+
+  <%= render "shared/form_errors", object: form.object %>
+
+  <div class="form-floating mb-3">
+    <%= form.text_field :username, required: true, class: "form-control", placeholder: t("user") %>
+    <%= form.label :username, t("user") %>
+  </div>
+  <div class="form-floating mb-3">
+    <%= form.email_field :email, required: true, class: "form-control", placeholder: t("email") %>
+    <%= form.label :email, t("email") %>
+  </div>
+  <div class="form-floating mb-3">
+    <%= form.password_field :password, required: true, class: "form-control", placeholder: t("password_field") %>
+    <%= form.label :password, t("password_field") %>
+  </div>
+  <div class="form-floating mb-3">
+    <%= form.password_field :password_confirmation, required: true, class: "form-control", placeholder: t("password_confirmation_field") %>
+    <%= form.label :password_confirmation, t("password_confirmation_field") %>
+
+  </div>
+
+  <div class="d-flex justify-content-end">
+    <%= form.submit t('.submit'), class: "btn btn-success" %>
+  </div>
+
+
+
+<% end %>

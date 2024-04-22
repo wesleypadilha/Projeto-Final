@@ -1,0 +1,41 @@
+<%= form_with model: @post do |form| %>
+  <div class="mb-3">
+    <%= form.label :title, t("posts.post_title"), class: "form-label" %><br>
+    <%= form.text_field :title, class:"form-control" %>
+    <% if @post.present? %>
+      <% @post.errors.full_messages_for(:title).each do |message| %>
+        <div><%= message %></div>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="mb-3">
+    <%= form.label :subtitle, t("posts.post_subtitle"), class: "form-label" %><br>
+    <%= form.text_field :subtitle, class: "form-control" %>
+    <% if @post.present? %>
+      <% @post.errors.full_messages_for(:subtitle).each do |message| %>
+        <div><%= message %></div>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="mb-3">
+    <%= form.label :body, t("posts.post_body"), class: "form-label" %><br>
+    <%= form.text_area :body, class:"form-control", style: "height: 25rem"  %>
+    <% if @post.present? %>
+      <% @post.errors.full_messages_for(:body).each do |message| %>
+        <div><%= message %></div>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="mb-3">
+    <%= form.label :tag_id, t("posts.post_tag"), class: "form-label" %><br>
+    <%= form.collection_select :tag_id, @tags, :id, :descryption, class: "form-select" %>
+    <% if @post.present? %>
+      <% @post.errors.full_messages_for(:tag_id).each do |message| %>
+        <div><%= message %></div>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="mb-3 d-flex flex-row-reverse">
+    <%= form.submit submit_message, class:"btn btn-primary text-uppercase" %>
+  </div>
+<% end %>

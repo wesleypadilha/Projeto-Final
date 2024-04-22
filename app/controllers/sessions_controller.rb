@@ -1,30 +1,36 @@
 class SessionsController < ApplicationController
-    before_action :verify_logged
+  layout 'layouts/authentication'
 
-    def destroy
-        session[:user_id] = nil
-        redirect_to root_path
+  before_action :redirect_if_authenticated, only: %i[create new]
+  before_action :authenticate!, only: [:destroy]
+
+  def create
+    @user = User.find_by(email: params[:user][:email].downcase)
+
+    unless @user
+      flash.now[:alert] = 'Incorrect email or password.'
+      render :new, status: :unprocessable_entity
+      return
     end
 
-    def new
+    unless @user.authenticate(params[:user][:password])
+      flash.now[:alert] = 'Incorrect email or password.'
+      render :new, status: :unprocessable_entity
+      return
     end
 
-    def create
-        user = User.find_by(email: params[:email])
-        if user.present? && user.authenticate(params[:password])
-            session[:user_id] = user.id
-            redirect_to root_path
-        else
-            flash[:alert] = "E-mail ou senha inválidos"
-            render :new
-        end
-    end
+    after_login_path = session[:user_return_to] || root_path
+    login @user
+    remember @user if params[:user][:remember_me] == '1'
+    redirect_to after_login_path, notice: 'Signed in.'
+  end
 
-    private 
+  def destroy
+    forget(current_user)
+    logout
+    redirect_to root_path, notice: 'Signed out.'
+  end
 
-    def verify_logged
-        if Current.user
-            redirect_to root_path
-        end
-    end
+  def new
+  end
 end

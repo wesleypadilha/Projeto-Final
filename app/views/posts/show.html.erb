@@ -1,0 +1,61 @@
+<header class="container" style="height: 20rem">
+  <div class="row gap-0 justify-content-center h-100 align-items-center">
+    <div class="text-center fw-bolder">
+      <h1 class="text-break"><%= @post.title %></h1>
+      <div class="text-success">
+        <hr>
+      </div>
+      <h2 class="text-break fw-lighter text-secondary"><%= @post.subtitle %></h2>
+    </div>
+
+    <div class="text-center text-light-emphasis fst-italic">
+      <%= t '.posted_by' %>
+      <span><%= @username %></span> <%= t'.time_publication' %> <%= l(@post.created_at, format: "%B %e, %Y").capitalize %>
+    </div>
+  </div>
+</header>
+<!-- Post Content-->
+<article class="mb-4">
+  <div class="container container-lg px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+
+      <div class="container">
+
+        <div class="row mb-4 text-break">
+          <%= simple_format(sanitize(@post.body, tags: %w(b strong em i)).html_safe) %>
+        </div>
+
+        <% unless @post.comments.empty? %>
+          <div class="row mb-4">
+            <h3 class="text-secondary"><%= t '.comments' %></h3>
+            <%= render @post.comments %>
+          </div>
+        <% end %>
+        <div class="row mb-4">
+          <%= form_with model: [@post, @post.comments.build] do |form| %>
+            <p class="mb-3">
+              <%= form.label :body, t('.comment'), class: "form-label" %><br>
+              <%= form.text_area :body, class: "form-control" %>
+            </p>
+            <div class="d-flex justify-content-end">
+              <%= form.submit t('.comment'), class: "btn btn-outline-primary" %>
+            </div>
+          <% end %>
+        </div>
+
+
+        <% if @user_owner %>
+          <div class="d-flex justify-content-between mb-3 gap-5">
+
+            <%= link_to t('.edit'), edit_post_path(@post), class: "btn btn-primary flex-grow-1" %>
+
+
+            <%= link_to t('.destroy'), post_path(@post), data: { turbo_method: :delete, turbo_confirm: "Tem certeza?" }, class: "btn btn-danger flex-grow-1" %>
+
+
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</article>

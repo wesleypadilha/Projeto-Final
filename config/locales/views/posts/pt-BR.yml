@@ -1,0 +1,25 @@
+pt-BR:
+  posts:
+    index:
+      subtitle: Seu web blog favorito
+      posted_by: Publicado por
+      filter: Filtrar
+      clean_filter: Limpar Filtro
+    show:
+      posted_by: Publicado por
+      time_publication: em
+      comments: Comentários
+      comment: Comente!
+      edit: Editar
+      destroy: Excluir
+    edit:
+      title: Editando Post
+      save: Salvar
+    post_title: Título
+    post_subtitle: Subtítulo
+    post_body: Conteúdo
+    post_tag: Tags
+    new:
+      title: Novo Post
+      save: Publicar
+

@@ -1,33 +1,28 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  scope '(:locale)', locale: /pt-BR|en/ do
+    root 'posts#index'
 
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
-  get "up" => "rails/health#show", as: :rails_health_check
+    get 'up' => 'rails/health#show', as: :rails_health_check
 
-  # Defines the root path route ("/")
-  root "main#index"
-  get "sign_up" => "registrations#new"
-  post "sign_up" => "registrations#create"
-  get "user" => "users#edit"
-  patch "user" => "users#update"
-  delete "logout" => "sessions#destroy"
-  get "sign_in" => "sessions#new"
-  post "sign_in" => "sessions#create"
-  get "posts" => "posts#myposts"
-  get "post" => "posts#new"
-  post "post" => "posts#create"
-  get 'posts/:user_id', to: 'posts#index'
-  delete 'post/:post_id', to: 'posts#delete'
-  get 'post/:post_id', to: 'posts#edit'
-  patch 'post/:post_id', to: 'posts#update'
-  get 'password', to: 'passwords#edit'
-  patch 'password', to: 'passwords#update'
-  get '/:post_id', to: 'publicposts#show'
-  post "comment", to: 'publicposts#create_comment'
-  get "comment/:post_id", to: 'publicposts#get_comments'
-  get "password/reset", to: "password_resets#new"
-  post "password/reset", to: "password_resets#create"
-  get "password/reset/edit", to: "password_resets#edit"
-  patch "password/reset/edit", to: "password_resets#update"
+    resources :posts do
+      resources :comments
+      get '/page/:page', action: :index, on: :collection
+    end
+
+    post "sign_up", to: "users#create"
+    get "sign_up", to: "users#new"
+
+    get "profile", to: "users#show"
+    get "profile/edit", to: "users#edit"
+    patch "profile/edit", to: "users#update"
+
+    get "password/edit", to: "users#edit_password"
+    patch "password/update", to: "users#update_password"
+
+    resources :passwords, only: [:create, :edit, :new, :update], param: :password_reset_token
+
+    post "login", to: "sessions#create"
+    delete "logout", to: "sessions#destroy"
+    get "login", to: "sessions#new"
+  end
 end

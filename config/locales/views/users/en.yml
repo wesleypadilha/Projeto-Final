@@ -1,0 +1,20 @@
+en:
+  users:
+    show:
+      title: These are your informations
+      change_info: Update Informations
+      change_pass: Update Password
+    edit:
+      title: Updating Your Informations
+      save: Save
+    edit_password:
+      title: Updating your password
+      save: Save
+    new:
+      title: Sign In
+      submit: Sign In
+  user: User
+  email: Email
+  password_field: Password
+  old_password_field: Current Password
+  password_confirmation_field: Password Confirmation

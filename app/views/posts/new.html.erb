@@ -1,25 +1,20 @@
-<div class="formScreen ">
-    <main class="form">
-        <h1>Novo Post</h1>
-        <%= form_with model: @post, url: post_path do |form|%>
-            <% if @post.errors.any? %>
-                <div>
-                    <% @post.errors.full_messages.each do |message| %>
-                        <div><%= message %></div>
-                    <% end %>
-                </div>
-            <% end %>  
-            <div class="mb-3">
-                <%= form.label "Título" %>
-                <%= form.text_field :title, placeholder: "Escreva aqui o seu título", class: "form-control", maxlength: 90%>
-            </div>
-            <div class="mb-3">
-                <%= form.label "Conteúdo" %>
-                <%= form.text_area :content, placeholder: "Escreva aqui o conteúdo do seu post", class: "form-control", maxlength: 1500, style: "min-height: 300px;"%>
-            </div>
-            <div>
-                <%= form.submit "Publicar Post", class:"btn btn-primary" %>
-            </div>
-        <% end %>
-    </main>
+<header class="masthead">
+  <div class="container position-relative px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+      <div class="col-md-10 col-lg-8 col-xl-7">
+        <div class="site-heading">
+          <h1>Novo Post</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="container px-4 px-lg-5">
+
+  <div class="row gx-4 gx-lg-5 justify-content-center">
+    <div class="col-md-10 col-lg-8 col-xl-7">
+      <%= render "form", post: @post, submit_message: t('.save') %>
+    </div>
+  </div>
 </div>

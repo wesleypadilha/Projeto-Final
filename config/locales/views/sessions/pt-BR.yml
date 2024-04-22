@@ -1,0 +1,7 @@
+pt-BR:
+  sessions:
+    new:
+      title: Login
+      forgot: Esqueceu sua senha?
+      submit: Login
+      remember: Lembrar de mim

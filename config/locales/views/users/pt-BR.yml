@@ -1,0 +1,22 @@
+pt-BR:
+  users:
+    show:
+      title: Essas são suas informações
+      change_info: Alterar Informações
+      change_pass: Alterar Senha
+    edit:
+      title: Alterando Suas Informações
+      save: Salvar
+    edit_password:
+      title: Alterando sua senha
+      save: Salvar
+    new:
+      title: Cadastrar
+      submit: Cadastro
+  user: Usuário
+  email: Email
+  password_field: Senha
+  old_password_field: Senha Atual
+  password_confirmation_field: Confirme Sua Senha
+
+

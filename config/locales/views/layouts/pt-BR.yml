@@ -1,0 +1,9 @@
+pt-BR:
+  layouts:
+    application:
+      post: Publicar
+      profile: Perfil
+    sign_in: Login
+    sign_up: Cadastrar
+    lang: Linguagem
+    change_lang: Mudar Linguagem

@@ -1,12 +1,27 @@
 class User < ApplicationRecord
-    has_secure_password
-    validates :email, presence: true, format: {with: /\A[^@\s]+@[^@\s]+\z/, message: "Insira um endereço de email válido"}, length: { minimum: 7, maximum: 90 }
-    validates :password, presence: true, length: { minimum: 7, maximum: 90 }, if: :password_required?
-    validates :password_confirmation, presence: true, length: { minimum: 7, maximum: 90 }, if: :password_required?
-    validates :name, presence: true, length: { minimum: 7, maximum: 50 }
-    validates :nickname, presence: true, length: { minimum: 7, maximum: 50 }
+  has_many :posts
+  has_many :comments
+  has_secure_password
+  has_secure_token :remember_token
 
-    def password_required?
-        password.present? || password_confirmation.present?
-    end
+  MAILER_FROM_EMAIL = "no_reply@email.com"
+  PASSWORD_RESET_TOKEN_EXPIRATION = 10.minutes
+
+  before_save :downcase_email
+
+  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }, presence: true, uniqueness: true
+
+  def generate_password_reset_token
+    signed_id expires_in: PASSWORD_RESET_TOKEN_EXPIRATION, purpose: :reset_password
+  end
+
+  def send_password_reset_email!
+    password_reset_token = generate_password_reset_token
+    UserMailer.password_reset(self, password_reset_token).deliver_now
+  end
+
+  private
+  def downcase_email
+    self.email = email.downcase
+  end
 end

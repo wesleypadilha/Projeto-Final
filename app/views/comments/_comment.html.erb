@@ -1,0 +1,17 @@
+<div class="card mb-4" >
+  <div class="card-body">
+    <h5 class="card-title">
+      <%= comment.user ? comment.user.username : "Anônimo" %>
+      diz:
+
+    </h5>
+    <h6 class="card-subtitle mb-2 text-body-secondary">
+      <%= comment.created_at.strftime('%d %B, %Y')%>
+
+    </h6>
+    <p class="card-text">
+      <%= comment.body %>
+    </p>
+  </div>
+</div>
+

@@ -1,0 +1,78 @@
+<!-- Page Header-->
+<header class="container" style="height: 20rem">
+  <div class="row gap-0 justify-content-center h-100 align-items-center">
+    <h1 class="text-center titles" style="font-size: 5rem">G<span class="titles text-bold text-success">Blog</span></h1>
+    <span class="text-center"><%= t '.subtitle' %></span>
+  </div>
+</header>
+<!-- Main Content-->
+<main class="container px-4 px-lg-5">
+  <article class="row gx-4 gx-lg-5 justify-content-center">
+    <section class="col-md-10 col-lg-8 col-xl-7">
+
+      <p class="d-inline-flex gap-1">
+      <p class="text-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+        <%= t '.filter' %>
+      </p>
+      </p>
+      <div class="collapse mb-3" , style="width: 200px;" id="collapseExample">
+        <div class="card card-body w-100">
+          <div class="d-flex w-100">
+            <div class="w-100">
+              <%= form_tag posts_path, method: :get do %>
+                <% @tags.each do |tag| %>
+                  <div class="form-check">
+                    <%= radio_button_tag :tag_id, tag.id, params[:tag_id].to_i == tag.id, class: "form-check-input", type: "radio" %>
+                    <%= label_tag "tag_id_#{tag.id}", tag.descryption, class: "form-check-label" %>
+                  </div>
+                <% end %>
+                <%= submit_tag t('.filter'), class: "btn btn-primary mt-2 w-100 mb-2" %>
+              <% end %>
+
+              <% if params[:tag_id].present? %>
+                <%= form_tag posts_path, method: :get, class: "mb-3" do %>
+                  <%= submit_tag t('.clean_filter'), class: "btn btn-secondary mt-2 w-100" %>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- Post preview-->
+      <% @posts.each do |p| %>
+        <%= link_to(p) do %>
+          <div class="card card-post-preview">
+            <div class="card-body">
+              <h5 class="card-title"><%= p.title %></h5>
+              <% unless p.tag.nil? %>
+                <div class="badge text-bg-danger bg-opacity-75 mb-2"><%= p.tag.descryption %></div>
+              <% end %>
+              <h6 class="card-subtitle mb-2 text-body-secondary"><%= p.subtitle %></h6>
+              <p class="card-text">
+                <%= t '.posted_by' %>
+                <span>
+                <%= p.user.username %>
+              </span>
+                <%= l(p.created_at, format: "%B %e, %Y").capitalize %>
+              </p>
+            </div>
+          </div>
+        <% end %>
+
+
+
+        <!-- Divider-->
+        <hr class="my-4"/>
+      <% end %>
+
+      <!-- Pager-->
+      <div class="mb-3 d-flex flex-row-reverse">
+
+        <%= paginate @posts %>
+
+      </div>
+    </section>
+  </article>
+</main>

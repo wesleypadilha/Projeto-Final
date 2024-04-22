@@ -1,0 +1,9 @@
+en:
+  layouts:
+    application:
+      post: Publish
+      profile: Profile
+    sign_in: Sign In
+    sign_up: Sign Up
+    lang: Language
+    change_lang: Switch language

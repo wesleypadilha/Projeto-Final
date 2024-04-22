@@ -1,0 +1,26 @@
+en:
+  posts:
+    index:
+      subtitle: Your Favourite Web Blog
+      posted_by: Posted by
+      filter: Filter
+      clean_filter: Clean Filter
+    show:
+      posted_by: Posted by
+      time_publication: 'on'
+      comments: Comments
+      comment: Comment!
+      edit: Edit
+      destroy: Exclude
+    edit:
+      title: Editing Post
+      save: Save
+    post_title: Title
+    post_subtitle: Subtitle
+    post_body: Content
+    post_tag: Tags
+
+    new:
+      title: New Post
+      save: Publish
+
